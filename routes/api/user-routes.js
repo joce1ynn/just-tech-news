@@ -9,7 +9,10 @@ const { User } = require("../../models");
 router.get("/", (req, res) => {
   // Access our User model and run .findAll() method
   // .findAll()方法允许我们从数据库中的用户表中查询所有用户,等于 SELECT * FROM users;
-  User.findAll()
+  User.findAll({
+    // hide users' password
+    attributes: { exclude: ["password"] },
+  })
     .then((dbUserData) => res.json(dbUserData))
     .catch((err) => {
       console.log(err);
@@ -20,6 +23,7 @@ router.get("/", (req, res) => {
 // GET /api/users/1
 router.get("/:id", (req, res) => {
   User.findOne({
+    attributes: { exclude: ["password"] },
     // where option to indicate we want to find a user where its id value equals whatever req.params.id is,
     // like the SQL query: SELECT * FROM users WHERE id = 1
     where: {
