@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { User } = require("../../models");
+const { User, Post } = require("../../models");
 
 // This naming convention along with the use of the HTTP methods follow a famous API architectural pattern called REST, or Representational State Transfer.
 // APIs built following this pattern are what's known as RESTful APIs.
@@ -21,27 +21,34 @@ router.get("/", (req, res) => {
 });
 
 // GET /api/users/1
-router.get("/:id", (req, res) => {
+router.get('/:id', (req, res) => {
   User.findOne({
-    attributes: { exclude: ["password"] },
-    // where option to indicate we want to find a user where its id value equals whatever req.params.id is,
+    attributes: { exclude: ['password'] },
+     // where option to indicate we want to find a user where its id value equals whatever req.params.id is,
     // like the SQL query: SELECT * FROM users WHERE id = 1
     where: {
-      id: req.params.id,
+      id: req.params.id
     },
+    include: [
+      {
+        model: Post,
+        attributes: ['id', 'title', 'post_url', 'created_at']
+      }
+    ]
   })
-    .then((dbUserData) => {
+    .then(dbUserData => {
       if (!dbUserData) {
-        res.status(404).json({ message: "No user found with this id" });
+        res.status(404).json({ message: 'No user found with this id' });
         return;
       }
       res.json(dbUserData);
     })
-    .catch((err) => {
+    .catch(err => {
       console.log(err);
       res.status(500).json(err);
     });
 });
+
 
 // POST /api/users
 router.post("/", (req, res) => {
@@ -58,26 +65,26 @@ router.post("/", (req, res) => {
     });
 });
 
-router.post('/login', (req, res) => {
+router.post("/login", (req, res) => {
   // expects {email: 'lernantino@gmail.com', password: 'password1234'}
   User.findOne({
     where: {
-      email: req.body.email
-    }
-  }).then(dbUserData => {
+      email: req.body.email,
+    },
+  }).then((dbUserData) => {
     if (!dbUserData) {
-      res.status(400).json({ message: 'No user with that email address!' });
+      res.status(400).json({ message: "No user with that email address!" });
       return;
     }
 
     const validPassword = dbUserData.checkPassword(req.body.password);
 
     if (!validPassword) {
-      res.status(400).json({ message: 'Incorrect password!' });
+      res.status(400).json({ message: "Incorrect password!" });
       return;
     }
 
-    res.json({ user: dbUserData, message: 'You are now logged in!' });
+    res.json({ user: dbUserData, message: "You are now logged in!" });
   });
 });
 
