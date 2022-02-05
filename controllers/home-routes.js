@@ -45,6 +45,16 @@ router.get("/", (req, res) => {
     });
 });
 
+// route renders login page
+router.get("/login", (req, res) => {
+  if (req.session.loggedIn) {
+    res.redirect("/");
+    return;
+  }
+
+  res.render("login");
+});
+
 module.exports = router;
 
 // 以前，我们使用res.send()orres.sendFile()作为响应。
@@ -52,3 +62,10 @@ module.exports = router;
 
 //{{ title }} 两个括号会将 HTML 字符转换为字符串。例如，<将成为&lt
 // {{{ body }}} 三个括号会将数据呈现为 HTML。
+
+// Sessions allow our Express.js server to keep track of which user is making a request,
+// and store useful data about them in memory.
+
+// COOKIES store information about the session on the user's client.
+// The express-session library allows us to connect to the back end.
+// The connect-session-sequelize library automatically stores the sessions created by express-session into our database.
