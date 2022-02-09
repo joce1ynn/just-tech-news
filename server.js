@@ -1,6 +1,4 @@
 const path = require("path");
-
-// npm packages
 const express = require("express");
 const session = require("express-session");
 const exphbs = require("express-handlebars");
@@ -8,9 +6,8 @@ const exphbs = require("express-handlebars");
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-const sequelize = require("./config/connection");
-
 // sets up an Express.js session and connects the session to our Sequelize database
+const sequelize = require("./config/connection");
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
 
 //"Super secret secret" should be replaced by an actual secret and stored in the .env file.
@@ -27,7 +24,8 @@ const sess = {
 
 app.use(session(sess));
 
-// const helpers = require("./utils/helpers");
+// Helpers allow us to add small bits of logic or data manipulation to the template itself, like format data (dates, words)
+const helpers = require("./utils/helpers");
 
 const hbs = exphbs.create({});
 
