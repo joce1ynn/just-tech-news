@@ -27,7 +27,7 @@ app.use(session(sess));
 // Helpers allow us to add small bits of logic or data manipulation to the template itself, like format data (dates, words)
 const helpers = require("./utils/helpers");
 
-const hbs = exphbs.create({});
+const hbs = exphbs.create({ helpers });
 
 app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
