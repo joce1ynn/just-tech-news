@@ -2,12 +2,12 @@
   <div class="title">
     <a href="{{post_url}}" target="_blank">{{title}}</a>
     {{!-- add helper format_url function --}}
-    {{!-- separate arguments with spaces  --}}
+    {{!-- separate arguments with spaces --}}
     <span>({{format_url post_url}})</span>
   </div>
-
   <div class="meta">
     {{!-- add helper format_plural format_date --}}
+
     {{vote_count}} {{format_plural "point" vote_count}} by {{user.username}} on {{format_date created_at}}
     |
     <a href="/post/{{id}}">{{comments.length}} {{format_plural "comment" comments.length}}</a>
