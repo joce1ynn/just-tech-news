@@ -8,20 +8,30 @@ This app shows the tech news posted by users. Users can login to create/edit/del
 ## Installation
 ```
 npm init -y
-npm install express sequelize mysql2 dotenv
+npm install express sequelize mysql2 dotenv bcrypt
 npm i jest -D   
-npm i express-session connect-session-sequelize express-handlebars
+npm i express-handlebars express-session connect-session-sequelize 
 
 mysql -u root -p
 source db/schema.sql
 quit
+
+npm run test
 npm run seed 
 npm start
 ```
 
+Add/edit the following code to package.json:
+```json
+  "main": "server.js",
+  "test": "jest",
+  "start": "node server.js",
+  "seed": "node seeds/index.js"
+```
+
 ## Application deployed on Heroku
 * [Heroku link](https://enigmatic-depths-94059.herokuapp.com/)
-* Deploy with seeds to heroku:
+* Deploy with seeds to heroku: add `JawsDB MySQL` on Resources tab
 ```
 heroku create
 git push heroku main
