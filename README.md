@@ -10,7 +10,7 @@ This app shows the tech news posted by users. Users can login to create/edit/del
 npm init -y
 npm install express sequelize mysql2 dotenv
 npm i jest -D   
-npm i express-session connect-session-sequelize
+npm i express-session connect-session-sequelize express-handlebars
 
 mysql -u root -p
 source db/schema.sql
