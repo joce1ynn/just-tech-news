@@ -36,6 +36,7 @@ router.get("/", (req, res) => {
     .then((dbPostData) => {
       // pass a single post object into the homepage template
       const posts = dbPostData.map((post) => post.get({ plain: true }));
+
       // we want to render the homepage.handlebars template
       res.render("homepage", {
         posts,
@@ -100,7 +101,6 @@ router.get("/post/:id", (req, res) => {
     });
 });
 
-// route renders login page
 router.get("/login", (req, res) => {
   if (req.session.loggedIn) {
     res.redirect("/");
@@ -111,6 +111,7 @@ router.get("/login", (req, res) => {
 });
 
 module.exports = router;
+
 
 // 以前，我们使用res.send()orres.sendFile()作为响应。
 // 我们已经连接了一个模板引擎，现在使用res.render()并指定我们想要使用的模板

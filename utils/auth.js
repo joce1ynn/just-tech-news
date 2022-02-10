@@ -1,8 +1,6 @@
 const withAuth = (req, res, next) => {
-  // if withAuth() calls res.redirect(), there is no need for the next function to be called, because the response has already been sent.
   if (!req.session.user_id) {
-    res.redirect("/login");
-    // When withAuth() calls next(), it will call the next (anonymous) function.
+    res.redirect('/login');
   } else {
     next();
   }
