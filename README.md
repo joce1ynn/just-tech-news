@@ -30,7 +30,7 @@ Add/edit the following code to package.json:
 ```
 
 ## Application deployed on Heroku
-* [Heroku link](https://enigmatic-depths-94059.herokuapp.com/)
+* [Heroku link](https://just-tech-news-2022.herokuapp.com/)
 * Deploy with seeds to heroku: add `JawsDB MySQL` on Resources tab
 ```
 heroku create
